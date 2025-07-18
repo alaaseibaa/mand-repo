@@ -101,11 +101,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ agent, onStartCall
   }
 
   return (
-    <div className="h-screen bg-gradient-to-br from-blue-50 via-white to-orange-50 relative overflow-hidden flex" dir="rtl">
-      {/* Background gradients */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-orange-200/30 via-blue-200/20 to-purple-200/15 rounded-full blur-3xl opacity-60" />
-      </div>
+    <div className="h-screen bg-white relative overflow-hidden flex" dir="rtl">
 
       {/* Conversation Sidebar */}
       <ConversationSidebar
@@ -128,44 +124,44 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ agent, onStartCall
 
       {/* Main Chat Area */}
       <div className={`relative flex flex-col h-full flex-1 min-w-0 transition-all duration-300 ${
-        sidebarOpen ? 'lg:mr-80' : ''
+        sidebarOpen ? 'lg:mr-64' : 'lg:mr-64'
       }`}>
         {/* Chat Header */}
-        <header className={`fixed top-0 z-40 backdrop-blur-2xl bg-white/10 border-b border-white/10 transition-all duration-300 ${
-          sidebarOpen ? 'left-0 right-0 lg:right-80' : 'left-0 right-0'
+        <header className={`fixed top-0 z-40 bg-white border-b border-gray-200 transition-all duration-300 ${
+          sidebarOpen ? 'left-0 right-0 lg:right-64' : 'left-0 right-0 lg:right-64'
         }`}>
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="flex items-center justify-between h-20">
+          <div className="px-6">
+            <div className="flex items-center justify-between h-16">
               
               {/* Left: Hamburger + Agent Info */}
               <div className="flex items-center space-x-3 space-x-reverse">
                 {/* Sidebar Toggle - Before agent info */}
                 <button
                   onClick={() => setSidebarOpen(!sidebarOpen)}
-                  className="p-2 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-xl bg-white/10 border border-white/20"
+                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200 lg:hidden"
                   aria-label="قائمة المحادثات"
                 >
-                  <svg className="h-5 w-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                   </svg>
                 </button>
                 
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-bold shadow-lg">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-bold">
                   {agent.name.split(' ')[0][0]}{agent.name.split(' ')[1]?.[0] || ''}
                 </div>
                 
                 <div className="text-right">
-                  <h2 className="text-lg font-semibold text-gray-900">{agent.name}</h2>
-                  <div className="flex items-center space-x-2 space-x-reverse text-xs">
+                  <h2 className="text-base font-medium text-gray-900">{agent.name}</h2>
+                  <div className="flex items-center space-x-2 space-x-reverse text-xs text-gray-500">
                     {chatState.isConnected ? (
                       <>
                         <Wifi className="h-3 w-3 text-green-500" />
-                        <span className="text-green-600">متصل</span>
+                        <span>متصل</span>
                       </>
                     ) : (
                       <>
                         <WifiOff className="h-3 w-3 text-red-500" />
-                        <span className="text-red-600">غير متصل</span>
+                        <span>غير متصل</span>
                       </>
                     )}
                   </div>
@@ -176,22 +172,22 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ agent, onStartCall
               <div className="flex items-center space-x-3 space-x-reverse">
                 <button
                   onClick={handleCall}
-                  className="p-2 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-xl bg-white/10 border border-white/20"
+                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200"
                   aria-label="مكالمة صوتية"
                 >
-                  <Phone className="h-5 w-5 text-gray-700" />
+                  <Phone className="h-5 w-5 text-gray-600" />
                 </button>
                 
                 <button
                   onClick={handleVideoCall}
-                  className="p-2 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-xl bg-white/10 border border-white/20"
+                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200"
                   aria-label="مكالمة فيديو"
                 >
-                  <Video className="h-5 w-5 text-gray-700" />
+                  <Video className="h-5 w-5 text-gray-600" />
                 </button>
                 
-                <button className="p-2 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-xl bg-white/10 border border-white/20">
-                  <MoreVertical className="h-5 w-5 text-gray-700" />
+                <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                  <MoreVertical className="h-5 w-5 text-gray-600" />
                 </button>
               </div>
             </div>
@@ -214,7 +210,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ agent, onStartCall
         {/* Chat Messages */}
         <div 
           ref={chatContainerRef}
-          className="flex-1 overflow-y-auto px-4 py-6 space-y-1 pt-24 relative z-20"
+          className="flex-1 overflow-y-auto px-6 py-4 space-y-1 pt-20 relative z-20"
           style={{ scrollBehavior: 'smooth' }}
         >
           {chatState.currentSession.messages.map((message, index) => (
@@ -233,11 +229,11 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ agent, onStartCall
         </div>
 
         {/* Input Area */}
-        <div className="flex-shrink-0 backdrop-blur-xl bg-white/80 border-t border-white/30 px-4 py-4 relative z-30">
-          <div className={`backdrop-blur-md bg-white/60 rounded-3xl border transition-all duration-300 ${
+        <div className="flex-shrink-0 bg-white border-t border-gray-200 px-6 py-4 relative z-30">
+          <div className={`bg-gray-100 rounded-2xl border transition-all duration-300 ${
             isInputFocused 
-              ? 'border-orange-300/60 shadow-lg shadow-orange-500/10' 
-              : 'border-white/40 shadow-md shadow-black/5'
+              ? 'border-gray-300 bg-white shadow-sm' 
+              : 'border-transparent'
           }`}>
             <div className="flex items-end space-x-3 space-x-reverse p-3">
               {/* Voice Recorder */}
@@ -260,7 +256,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ agent, onStartCall
                   onBlur={() => setIsInputFocused(false)}
                   placeholder="اكتب رسالتك هنا..."
                   disabled={!chatState.isConnected || voiceRecording.isRecording}
-                  className="w-full bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none resize-none text-sm leading-relaxed py-2"
+                  className="w-full bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none resize-none leading-relaxed py-2"
                   style={{ minHeight: '24px', maxHeight: '120px' }}
                 />
               </div>
@@ -271,8 +267,8 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ agent, onStartCall
                 disabled={!inputValue.trim() || !chatState.isConnected || voiceRecording.isRecording}
                 className={`p-3 rounded-full transition-all duration-200 shadow-lg ${
                   inputValue.trim() && chatState.isConnected && !voiceRecording.isRecording
-                    ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700 shadow-orange-500/25 hover:shadow-orange-500/40 hover:scale-105'
-                    : 'bg-gray-100 text-gray-400 cursor-not-allowed shadow-gray-200/50'
+                    ? 'bg-black text-white hover:bg-gray-800'
+                    : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                 }`}
                 aria-label="إرسال الرسالة"
               >

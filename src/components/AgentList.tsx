@@ -111,7 +111,7 @@ export const AgentList: React.FC<AgentListProps> = ({ category, onBack, onStartC
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-orange-50 relative overflow-hidden" dir="rtl">
+    <div className="min-h-screen bg-white relative overflow-hidden flex" dir="rtl">
       {/* Conversation Sidebar */}
       <ConversationSidebar
         isOpen={sidebarOpen}
@@ -130,89 +130,66 @@ export const AgentList: React.FC<AgentListProps> = ({ category, onBack, onStartC
         }}
       />
 
-      {/* Background gradients */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-orange-200/40 via-blue-200/30 to-purple-200/20 rounded-full blur-3xl opacity-60" />
-        <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-orange-300/30 to-pink-300/20 rounded-full blur-3xl opacity-50" />
-        <div className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-tr from-blue-300/30 to-purple-300/20 rounded-full blur-3xl opacity-40" />
-      </div>
-
-      {/* Minimal Modern Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl bg-white/10 border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            
-            {/* Logo + Back Button */}
+      {/* Main Content Area */}
+      <div className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'lg:mr-64' : 'lg:mr-64'}`}>
+        {/* Header */}
+        <header className="border-b border-gray-200 bg-white">
+          <div className="flex items-center justify-between px-6 py-4">
+            {/* Left: Hamburger + Back + Title */}
             <div className="flex items-center space-x-4 space-x-reverse">
               <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="p-2 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-xl bg-white/10 border border-white/20"
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200 lg:hidden"
                 aria-label="قائمة المحادثات"
               >
-                <svg className="h-5 w-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </button>
               
               <button
                 onClick={onBack}
-                className="flex items-center space-x-2 space-x-reverse text-orange-600 hover:text-orange-700 transition-colors duration-200 group backdrop-blur-xl bg-white/20 px-4 py-2 rounded-full border border-white/20"
+                className="flex items-center space-x-2 space-x-reverse text-gray-600 hover:text-gray-900 transition-colors duration-200 group"
                 aria-label="العودة إلى الفئات"
               >
                 <ArrowRight className="h-4 w-4 group-hover:transform group-hover:translate-x-1 transition-transform duration-200" />
                 <span className="font-medium">عودة</span>
               </button>
               
-              <div className="flex items-center space-x-2 space-x-reverse">
-                <img 
-                  src="/mandaleen-logo.png" 
-                  alt="مندلين" 
-                  className="h-8 w-8"
-                />
-                <h1 className="text-2xl font-semibold text-black tracking-normal">
-                  مندلين
-                </h1>
-              </div>
+              <h1 className="text-xl font-semibold text-gray-900">
+                {category.name}
+              </h1>
             </div>
 
-
-            {/* Search Box */}
+            {/* Center: Search */}
             <div className="flex-1 max-w-md mx-8">
-              <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-white/25 to-white/20 rounded-full backdrop-blur-3xl border border-white/20 shadow-2xl shadow-orange-500/10 group-hover:shadow-orange-500/20 transition-all duration-500" />
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-orange-50/30 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none z-10">
-                  <Search className="h-4 w-4 text-gray-500 group-hover:text-orange-500 transition-colors duration-300" />
+              <div className="relative">
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                  <Search className="h-4 w-4 text-gray-400" />
                 </div>
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="relative w-full pr-10 pl-5 py-3 bg-transparent border-0 rounded-full placeholder-gray-500 text-gray-800 focus:outline-none focus:ring-0 font-medium"
+                  className="w-full pr-10 pl-3 py-2 bg-gray-100 border-0 rounded-lg placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all duration-200"
                   placeholder="ابحث عن وكيل..."
                 />
               </div>
             </div>
 
-            {/* Login Button */}
+            {/* Right: Login Button */}
             <div className="flex items-center">
-              <button className="group relative overflow-hidden px-5 py-2.5 rounded-full backdrop-blur-xl bg-gradient-to-r from-orange-500/90 to-orange-600/90 hover:from-orange-600 hover:to-orange-700 text-white transition-all duration-300 shadow-xl shadow-orange-500/25 hover:shadow-orange-500/40 border border-orange-400/30">
-                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="relative flex items-center space-x-2 space-x-reverse font-medium">
-                  <User className="h-4 w-4" />
-                  <span>دخول</span>
-                </div>
+              <button className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors duration-200 text-sm font-medium">
+                دخول
               </button>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <div className="relative pt-32 pb-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
+        {/* Main Content */}
+        <main className="p-6">
           {/* Filters */}
-          <div className="backdrop-blur-xl bg-white/40 rounded-3xl p-4 border border-white/30 shadow-2xl shadow-black/10 ring-1 ring-white/20 mb-8">
+          <div className="bg-gray-50 rounded-xl p-4 mb-6">
             <div className="flex items-center justify-between">
               {/* Status */}
               <div className="flex items-center space-x-2 space-x-reverse">
@@ -221,23 +198,23 @@ export const AgentList: React.FC<AgentListProps> = ({ category, onBack, onStartC
               </div>
 
               {/* Filters */}
-              <div className="flex items-center space-x-4 space-x-reverse">
+              <div className="flex items-center space-x-3 space-x-reverse">
                 <button
                   onClick={() => setFilterOnline(!filterOnline)}
-                  className={`flex items-center space-x-2 space-x-reverse px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
+                  className={`flex items-center space-x-2 space-x-reverse px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                     filterOnline
-                      ? 'bg-green-500 text-white shadow-lg shadow-green-500/25'
-                      : 'bg-white/60 text-gray-700 hover:bg-white/80'
+                      ? 'bg-green-500 text-white'
+                      : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
                   }`}
                 >
-                  <Filter className="h-4 w-4" />
+                  <Filter className="h-3 w-3" />
                   <span>متاح الآن</span>
                 </button>
 
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as 'rating' | 'name' | 'responseTime')}
-                  className="px-4 py-2 rounded-xl bg-white/60 text-gray-700 border border-white/30 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:bg-white/80 transition-all duration-300"
+                  className="px-3 py-1.5 rounded-lg bg-white text-gray-700 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
                 >
                   <option value="rating">ترتيب حسب التقييم</option>
                   <option value="name">ترتيب حسب الاسم</option>
@@ -249,14 +226,14 @@ export const AgentList: React.FC<AgentListProps> = ({ category, onBack, onStartC
 
           {/* Results count */}
           <div className="mb-6">
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-sm">
               عرض {filteredAgents.length} من أصل {agents.length} وكيل
             </p>
           </div>
 
           {/* Agent cards */}
           {filteredAgents.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
               {filteredAgents.map((agent) => (
                 <AgentCard
                   key={agent.id}
@@ -268,7 +245,7 @@ export const AgentList: React.FC<AgentListProps> = ({ category, onBack, onStartC
             </div>
           ) : (
             <div className="text-center py-12">
-              <div className="backdrop-blur-xl bg-white/40 rounded-3xl p-12 border border-white/30 shadow-2xl shadow-black/10 ring-1 ring-white/20">
+              <div className="bg-gray-50 rounded-2xl p-12">
                 <Users className="h-16 w-16 text-gray-400 mx-auto mb-4" />
                 <h3 className="text-xl font-medium text-gray-900 mb-2">
                   لا توجد نتائج
@@ -281,14 +258,14 @@ export const AgentList: React.FC<AgentListProps> = ({ category, onBack, onStartC
                     setSearchQuery('');
                     setFilterOnline(false);
                   }}
-                  className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-lg shadow-orange-500/25"
+                  className="px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-all duration-200"
                 >
                   إعادة تعيين البحث
                 </button>
               </div>
             </div>
           )}
-        </div>
+        </main>
       </div>
     </div>
   );

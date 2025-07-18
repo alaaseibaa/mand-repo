@@ -114,6 +114,16 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ agent, onStartCall
         currentConversationId={chatState.currentSession.id}
         onConversationSelect={handleConversationSelect}
         onNewConversation={handleNewConversation}
+        onNavigateHome={() => {
+          // Navigate back to home - this would need to be passed from App component
+          setSidebarOpen(false);
+          // For now, just close sidebar. In a real app, you'd navigate to home
+        }}
+        onNavigateCategories={() => {
+          // Navigate to categories - this would need to be passed from App component  
+          setSidebarOpen(false);
+          // For now, just close sidebar. In a real app, you'd navigate to categories
+        }}
       />
 
       {/* Main Chat Area */}

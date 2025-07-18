@@ -95,6 +95,14 @@ export const CategoryNavigation: React.FC<CategoryNavigationProps> = ({
         onClose={() => setSidebarOpen(false)}
         onConversationSelect={handleConversationSelect}
         onNewConversation={handleNewConversation}
+        onNavigateHome={() => {
+          // Already on home page, just close sidebar
+          setSidebarOpen(false);
+        }}
+        onNavigateCategories={() => {
+          // Already on categories page, just close sidebar
+          setSidebarOpen(false);
+        }}
       />
 
       {/* Liquid Glass Blur Overlay when sidebar is open */}

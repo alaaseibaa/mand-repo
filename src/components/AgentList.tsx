@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ArrowRight, Users, Search, Filter, User } from 'lucide-react';
 import { Category, Agent } from '../types';
 import { AgentCard } from './AgentCard';
+import { ConversationSidebar } from './ConversationSidebar';
 import { getAgentsByCategory } from '../data/mockAgents';
 
 interface AgentListProps {
@@ -74,6 +75,18 @@ export const AgentList: React.FC<AgentListProps> = ({ category, onBack, onStartC
     onStartCall(agent);
   };
 
+  const handleConversationSelect = () => {
+    // Handle conversation selection - could navigate to chat
+    // Selected conversation handler
+  };
+
+  const handleNewConversation = () => {
+    // Handle new conversation
+    // New conversation handler
+  };
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   const onlineAgentsCount = agents.filter(agent => agent.isOnline).length;
 
   if (isLoading) {
@@ -99,6 +112,24 @@ export const AgentList: React.FC<AgentListProps> = ({ category, onBack, onStartC
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-orange-50 relative overflow-hidden" dir="rtl">
+      {/* Conversation Sidebar */}
+      <ConversationSidebar
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        onConversationSelect={handleConversationSelect}
+        onNewConversation={handleNewConversation}
+        onNavigateHome={() => {
+          // Navigate back to home
+          setSidebarOpen(false);
+          onBack(); // Go back to categories, then home
+        }}
+        onNavigateCategories={() => {
+          // Navigate to categories
+          setSidebarOpen(false);
+          onBack(); // Go back to categories
+        }}
+      />
+
       {/* Background gradients */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-orange-200/40 via-blue-200/30 to-purple-200/20 rounded-full blur-3xl opacity-60" />
@@ -113,6 +144,16 @@ export const AgentList: React.FC<AgentListProps> = ({ category, onBack, onStartC
             
             {/* Logo + Back Button */}
             <div className="flex items-center space-x-4 space-x-reverse">
+              <button
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+                className="p-2 hover:bg-white/20 rounded-lg transition-colors duration-200 backdrop-blur-xl bg-white/10 border border-white/20"
+                aria-label="قائمة المحادثات"
+              >
+                <svg className="h-5 w-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+              
               <button
                 onClick={onBack}
                 className="flex items-center space-x-2 space-x-reverse text-orange-600 hover:text-orange-700 transition-colors duration-200 group backdrop-blur-xl bg-white/20 px-4 py-2 rounded-full border border-white/20"
